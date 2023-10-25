@@ -1,5 +1,5 @@
 # SnakeGame
-C Project
+C Mini Project
 
 Member
 1. ธนดล กองสุข 65070091
