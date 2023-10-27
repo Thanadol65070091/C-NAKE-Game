@@ -1,4 +1,4 @@
-# SnakeGame
+# C-nake Game
 C Mini Project
 
 Member
