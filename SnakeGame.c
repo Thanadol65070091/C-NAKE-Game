@@ -16,7 +16,7 @@ int skullx = -1, skully;
 int skullPresent = 0;
 int prevSkullx = -1, prevSkully;
 void drawScore() {
-    printf("\e[%iB\e[%iC Score: %d", height + 2, width / 2 - 5, score);
+    printf("\e[%iB\e[%iC Score : %d", height + 2, width / 2 - 5, score);
     printf("\e[%iF", height + 2);
 }
 void diamond(){
@@ -168,7 +168,7 @@ int main() {
         if (!quit) {
             printf("\e[%iB\e[%iC Game Over! ", width / 2, (height / 2) - 5);
             printf("\e[%iF", width / 2);
-            printf("Your Score: %d\n", score);
+            printf("Your Score : %d\n", score);
             fflush(stdout);
             getchar();
             resetGame();
