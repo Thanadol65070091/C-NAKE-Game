@@ -14,6 +14,7 @@ int quit = 0;
 int score = 0;
 int skullx = -1, skully;
 int skullPresent = 0;
+int prevSkullx = -1, prevSkully;
 void drawScore() {
     printf("\e[%iB\e[%iC Score: %d", height + 2, width / 2 - 5, score);
     printf("\e[%iF", height + 2);
@@ -67,10 +68,12 @@ void resetGame() {
     tail = 0;
     gameover = 0;
     diamondx = -1;
+    skullx = -1;
     xdir = 1;
     ydir = 0;
     quit = 0;
     score = 0;
+    skullPresent = 0;
 }
 int main() {
     printf("\e[?25l");
@@ -86,21 +89,37 @@ int main() {
         y[head] = width / 2;
         while (!quit && !gameover) {
             diamond();
+            if (skullx > 0) {
+                    printf("\e[%iB\e[%iC💀", skully + 1, skullx + 1);
+                    printf("\e[%iF", skully + 1);
+            }
             printf("\e[%iB\e[%iC·", y[tail] + 1, x[tail] + 1);
             printf("\e[%iF", y[tail] + 1);
 
             if (x[head] == diamondx && y[head] == diamondy) {
                 diamondx = -1;
                 printf("\a");
-                score++;
-                drawScore();
+                if (score >= 0 && skullx != -1) {
+                    score++;
+                    drawScore();
+                }
+                else if (score >= 0 && skullx == -1) {
+                    score += 1;
+                    drawScore();
+                }
             } 
             else if (x[head] == skullx && y[head] == skully) {
                 skullx = -1;
                 printf("\a");
-                score--;
-                drawScore();
-                skullPresent = 0;
+                if (score > 0) {
+                    score--;
+                    drawScore();
+                    skullPresent = 0;
+                } else {
+                    skullx = -1;
+                    skullPresent = 0;
+                    diamond();
+                }
             }else{
                 tail = (tail + 1) % 1000;}
 
